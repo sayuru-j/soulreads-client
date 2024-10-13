@@ -27,7 +27,6 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
 
         setLoadingFirstBook(true);
         try {
-          // Try to get from cache first (type-safe as BookInfo)
           let firstBook = getFromCache<BookInfo>(bookTitle);
           if (!firstBook) {
             firstBook = await getBookInfo(bookTitle);
@@ -62,9 +61,11 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
             })
           );
 
+          // This line filters out undefined values
           const validBooks = fetchedBooks.filter(
             (bookInfo): bookInfo is BookInfo => bookInfo !== undefined
           );
+
           setRemainingBookInfos(validBooks);
         } catch (error) {
           console.log("Error fetching the remaining books:", error);
@@ -224,7 +225,9 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
           </motion.div>
         </div>
       ) : (
-        <div>Looks like there&apos;s no books</div>
+        <div className="font-semibold text-3xl text-center text-black">
+          Complete the quiz before.
+        </div>
       )}
     </>
   );

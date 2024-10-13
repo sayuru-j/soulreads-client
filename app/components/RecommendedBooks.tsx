@@ -39,39 +39,41 @@ const RecommendedBooks = () => {
         }
       />
 
-      <div className="flex items-center gap-4 my-4 justify-center font-semibold">
-        <button
-          type="button"
-          className="bg-[#da4363] py-2 px-6 text-white rounded-md"
-          onClick={() => {
-            if (currentPage.start > 0) {
-              setCurrentPage((prevData) => ({
-                start: prevData.start - 10,
-                end: prevData.end - 10,
-              }));
-            }
-          }}
-        >
-          Previous
-        </button>
-        <button
-          type="button"
-          className="bg-[#da4363] py-2 px-6 text-white rounded-md"
-          onClick={() => {
-            if (
-              currentPage.end <
-              (recommendedBookList ? recommendedBookList.length : 0)
-            ) {
-              setCurrentPage((prevData) => ({
-                start: prevData.start + 10,
-                end: prevData.end + 10,
-              }));
-            }
-          }}
-        >
-          Next
-        </button>
-      </div>
+      {recommendedBookList && recommendedBookList?.length < 1 && (
+        <div className="flex items-center gap-4 my-4 justify-center font-semibold">
+          <button
+            type="button"
+            className="bg-[#da4363] py-2 px-6 text-white rounded-md"
+            onClick={() => {
+              if (currentPage.start > 0) {
+                setCurrentPage((prevData) => ({
+                  start: prevData.start - 10,
+                  end: prevData.end - 10,
+                }));
+              }
+            }}
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            className="bg-[#da4363] py-2 px-6 text-white rounded-md"
+            onClick={() => {
+              if (
+                currentPage.end <
+                (recommendedBookList ? recommendedBookList.length : 0)
+              ) {
+                setCurrentPage((prevData) => ({
+                  start: prevData.start + 10,
+                  end: prevData.end + 10,
+                }));
+              }
+            }}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };
