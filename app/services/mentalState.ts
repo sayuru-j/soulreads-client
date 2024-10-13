@@ -1,9 +1,9 @@
-import { MentalState } from "../@types";
+import { MentalState, State } from "../@types";
 
 export const calculateMentalStateAndProvideTagLine = (
   score: number
 ): MentalState => {
-  let diagnosedState: string;
+  let diagnosedState: State;
   let tagline: string;
 
   if (score <= 20) {
@@ -27,7 +27,7 @@ export const calculateMentalStateAndProvideTagLine = (
     tagline =
       "Your results suggest you may be experiencing some mood swings associated with bipolar disorder. A professional can provide more clarity and support.";
   } else if (score <= 80) {
-    diagnosedState = "Personality Disorder";
+    diagnosedState = "Personality disorder";
     tagline =
       "Your results show signs that might be associated with a personality disorder. It's always helpful to talk to a professional for guidance.";
   } else {
