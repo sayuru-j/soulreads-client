@@ -39,7 +39,7 @@ const RecommendedBooks = () => {
         }
       />
 
-      {recommendedBookList && recommendedBookList?.length < 1 && (
+      {recommendedBookList && recommendedBookList?.length !== 0 && (
         <div className="flex items-center gap-4 my-4 justify-center font-semibold">
           <button
             type="button"

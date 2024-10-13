@@ -4,7 +4,7 @@ import RecommendedBooks from "../components/RecommendedBooks";
 
 const BooksPage = () => {
   return (
-    <div className="w-screen min-h-screen">
+    <div className="w-screen min-h-screen overflow-x-hidden">
       <Header />
       <RecommendedBooks />
     </div>
