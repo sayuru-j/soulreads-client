@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { navItems as niList } from "../data";
 import { NavigationItem } from "../@types";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 type HeaderProps = {
   logoOnly?: boolean;
@@ -13,6 +14,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
   const navItems: NavigationItem[] = niList;
+  const router = useRouter();
 
   // Animation variants
   const navItemVariants = {
@@ -62,6 +64,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
                 variants={navItemVariants}
                 custom={index}
                 className="text-sm cursor-pointer"
+                onClick={() => router.push(ni.url)}
               >
                 {ni.name}
               </motion.h2>
@@ -75,6 +78,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
         initial="hidden"
         animate="visible"
         variants={logoVariant}
+        onClick={() => router.push("/")}
       >
         <h2 className="font-extrabold text-2xl md:text-3xl cursor-pointer">
           SOULREADS
@@ -95,6 +99,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
               variants={navItemVariants}
               custom={index + Math.floor(navItems.length / 2)} // Custom delay for staggered animation
               className="text-sm cursor-pointer"
+              onClick={() => router.push(ni.url)}
             >
               {ni.name}
             </motion.h2>
