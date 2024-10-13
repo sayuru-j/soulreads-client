@@ -17,20 +17,35 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
   const navItems: NavigationItem[] = niList;
   const router = useRouter();
   const [user, setUser] = useState<User>();
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
     const existingUser = loadUser();
     setUser(existingUser ? existingUser : undefined);
   }, []);
 
-  // Animation variants
+  const handleToggle = () => {
+    setIsDarkMode((prev) => !prev);
+
+    const htmlElement = document.documentElement;
+
+    // Log current state and toggle the class
+    if (!isDarkMode) {
+      htmlElement.classList.add("dark");
+      console.log("Dark mode enabled");
+    } else {
+      htmlElement.classList.remove("dark");
+      console.log("Dark mode disabled");
+    }
+  };
+
   const navItemVariants = {
     hidden: { opacity: 0, y: -10 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
       transition: {
-        delay: i * 0.1, // Delay for staggered effect
+        delay: i * 0.1,
       },
     }),
   };
@@ -55,7 +70,6 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
       ${noPad ? "p-0 md:mt-10" : "py-6"}
       border-black/20`}
     >
-      {/* Left Navigation Items */}
       <motion.div
         id="left"
         className="flex items-center gap-4 md:gap-6 w-full md:w-1/3 font-semibold justify-center md:justify-start"
@@ -78,7 +92,6 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
             ))}
       </motion.div>
 
-      {/* Center Logo */}
       <motion.div
         id="center"
         className="flex items-center justify-center w-full md:w-1/3 py-4 md:py-0"
@@ -92,7 +105,6 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
         </h2>
       </motion.div>
 
-      {/* Right Navigation Items */}
       <motion.div
         id="right"
         className="flex items-center gap-4 md:gap-6 w-full md:w-1/3 justify-center md:justify-end"
@@ -104,13 +116,19 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
             <motion.h2
               key={ni.id}
               variants={navItemVariants}
-              custom={index + Math.floor(navItems.length / 2)} // Custom delay for staggered animation
+              custom={index + Math.floor(navItems.length / 2)}
               className="text-sm cursor-pointer"
               onClick={() => router.push(ni.url)}
             >
               {ni.name}
             </motion.h2>
           ))}
+        <motion.button
+          className="bg-gray-200 rounded-full p-2"
+          onClick={handleToggle}
+        >
+          {isDarkMode ? "🌞" : "🌙"}
+        </motion.button>
 
         <motion.h2
           variants={navItemVariants}
