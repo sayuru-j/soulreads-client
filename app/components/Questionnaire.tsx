@@ -1,11 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { questionnaire_2 as questionnaire } from "../data/questionnaires";
-import { MentalState } from "../@types";
+import { Answer, MentalState, Quiz } from "../@types";
 import { calculateMentalStateAndProvideTagLine } from "../services/mentalState";
-// import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import {
+  deleteDiagnosis,
+  loadDiagnosis,
+  saveDiagnosis,
+} from "../services/diagnose";
+import { loadUser } from "../services/user";
 
 const Questionnaire = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -13,50 +19,74 @@ const Questionnaire = () => {
   const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
   const [score, setScore] = useState<number | null>(null);
   const [diagnosis, setDiagnosis] = useState<MentalState>();
-  //   const router = useRouter();
+  const router = useRouter();
   const [warn, setWarn] = useState("");
 
   const currentQuestion = questionnaire[currentQuestionIndex];
 
-  // Load the previously selected answer for the current question, if it exists
-  React.useEffect(() => {
+  useEffect(() => {
     if (answers[currentQuestion.id] !== undefined) {
       setSelectedAnswer(answers[currentQuestion.id]);
     } else {
       setSelectedAnswer(null);
       setWarn("");
     }
+  }, [currentQuestionIndex, answers, currentQuestion.id]);
 
+  useEffect(() => {
     if (score) {
-      setDiagnosis(calculateMentalStateAndProvideTagLine(score));
+      const _diagnosis = calculateMentalStateAndProvideTagLine(score);
+      setDiagnosis(_diagnosis);
+      saveDiagnosis({
+        user: loadUser(),
+        diagnosis: _diagnosis,
+      });
     }
-  }, [currentQuestionIndex, answers, currentQuestion.id, diagnosis, score]);
+  }, [score]);
+
+  useEffect(() => {
+    const savedDiagnosis = loadDiagnosis();
+    if (savedDiagnosis) {
+      setDiagnosis(savedDiagnosis);
+    }
+  }, []);
 
   const handleAnswerSelect = (answerId: number) => {
     setSelectedAnswer(answerId);
   };
 
-  const calculateScore = () => {
-    // Calculate the sum of all selected answer points
+  const calculateScore = (
+    questionnaire: Quiz[],
+    answers: { [key: number]: number | null }
+  ) => {
     let totalScore = 0;
     let maxScore = 0;
 
-    questionnaire.forEach((question) => {
+    questionnaire.forEach((question: Quiz) => {
       const selected = answers[question.id];
       const maxPoints = Math.max(...question.answers.map((a) => a.points));
-      maxScore += maxPoints; // Maximum score possible for each question
+      const questionWeight = question.weight || 1;
+
+      maxScore += maxPoints * questionWeight;
 
       if (selected !== null && selected !== undefined) {
-        const selectedAnswer = question.answers.find((a) => a.id === selected);
+        const selectedAnswer = question.answers.find(
+          (a: Answer) => a.id === selected
+        );
         if (selectedAnswer) {
-          totalScore += selectedAnswer.points;
+          totalScore += selectedAnswer.points * questionWeight;
         }
       }
     });
 
-    // Normalize the score between 0 and 100
-    const normalizedScore = (totalScore / maxScore) * 100;
-    return Math.round(normalizedScore); // Round off to an integer
+    if (totalScore < maxScore * 0.3) {
+      totalScore *= 1.1;
+    } else if (totalScore > maxScore * 0.8) {
+      totalScore *= 0.9;
+    }
+
+    const normalizedScore = Math.min((totalScore / maxScore) * 100, 100);
+    return Math.round(normalizedScore);
   };
 
   const handleContinue = () => {
@@ -65,17 +95,15 @@ const Questionnaire = () => {
       return;
     }
 
-    // Save the selected answer for the current question
     setAnswers((prevAnswers) => ({
       ...prevAnswers,
       [currentQuestion.id]: selectedAnswer,
     }));
 
-    // Move to the next question or calculate the score at the end
     if (currentQuestionIndex < questionnaire.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      const finalScore = calculateScore();
+      const finalScore = calculateScore(questionnaire, answers); // Pass the questionnaire and answers
       setScore(finalScore);
     }
 
@@ -88,7 +116,6 @@ const Questionnaire = () => {
     }
   };
 
-  // Animation variants
   const fadeInOut = {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -97,8 +124,7 @@ const Questionnaire = () => {
 
   return (
     <div className="flex mb-20 flex-col max-w-7xl mx-auto w-full justify-center p-10 md:p-40 gap-10 md:mt-0">
-      {/* Show the score if the quiz is completed */}
-      {score !== null ? (
+      {diagnosis ? (
         <motion.div
           initial="hidden"
           animate="visible"
@@ -110,10 +136,19 @@ const Questionnaire = () => {
           <h2 className="md:text-2xl text-xl">{diagnosis?.tagline}</h2>
 
           <div
-            onClick={() => alert("Implement the books")}
+            onClick={() => router.push("/books")}
             className="bg-[#da4363] cursor-pointer items-center justify-center hover:shadow-md text-white p-3 text-lg rounded-md transition-all duration-100 w-48 inline-flex font-semibold mt-6"
           >
             Books for you
+          </div>
+          <div
+            onClick={() => {
+              deleteDiagnosis();
+              window.location.reload();
+            }}
+            className="bg-slate-600 cursor-pointer items-center justify-center hover:shadow-md text-white p-3 text-lg rounded-md transition-all duration-100 w-48 inline-flex font-semibold"
+          >
+            Retry test
           </div>
 
           <div className="text-sm mt-6">
@@ -169,7 +204,6 @@ const Questionnaire = () => {
                     {answer.id}
                   </h2>
 
-                  {/* Hidden native radio input */}
                   <input
                     className="hidden"
                     aria-label={`answer-${answer.id}`}
@@ -178,7 +212,6 @@ const Questionnaire = () => {
                     onChange={() => handleAnswerSelect(answer.id)}
                   />
 
-                  {/* Custom styled radio button */}
                   <div
                     className={`w-4 h-4 md:w-6 md:h-6 rounded-full border-2 border-black/50 flex items-center justify-center ${
                       selectedAnswer === answer.id

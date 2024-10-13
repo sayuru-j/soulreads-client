@@ -1,94 +1,32 @@
 import { Quiz } from "../@types";
 
-export const questionnaire_1: Quiz[] = [
-  {
-    id: 1,
-    question: "How often do you feel hopeless or lost?",
-    answers: [
-      { id: 1, answer: "Rarely", points: 40 }, // 'Normal' gets highest points
-      { id: 2, answer: "Sometimes", points: 30 },
-      { id: 3, answer: "Often", points: 20 },
-      { id: 4, answer: "Always", points: 10 }, // 'Always' gets lowest points
-    ],
-  },
-  {
-    id: 2,
-    question: "How often do you feel anxious or overwhelmed by small tasks?",
-    answers: [
-      { id: 1, answer: "Rarely", points: 40 },
-      { id: 2, answer: "Sometimes", points: 30 },
-      { id: 3, answer: "Often", points: 20 },
-      { id: 4, answer: "Always", points: 10 },
-    ],
-  },
-  {
-    id: 3,
-    question: "Do you struggle with mood swings that affect your daily life?",
-    answers: [
-      { id: 1, answer: "Rarely", points: 40 },
-      { id: 2, answer: "Sometimes", points: 30 },
-      { id: 3, answer: "Often", points: 20 },
-      { id: 4, answer: "Always", points: 10 },
-    ],
-  },
-  {
-    id: 4,
-    question:
-      "How often do you find it difficult to maintain relationships or commitments?",
-    answers: [
-      { id: 1, answer: "Rarely", points: 40 },
-      { id: 2, answer: "Sometimes", points: 30 },
-      { id: 3, answer: "Often", points: 20 },
-      { id: 4, answer: "Always", points: 10 },
-    ],
-  },
-  {
-    id: 5,
-    question: "Do you frequently feel tense or stressed without clear reasons?",
-    answers: [
-      { id: 1, answer: "Rarely", points: 40 },
-      { id: 2, answer: "Sometimes", points: 30 },
-      { id: 3, answer: "Often", points: 20 },
-      { id: 4, answer: "Always", points: 10 },
-    ],
-  },
-  {
-    id: 6,
-    question:
-      "How often do you experience difficulty sleeping due to worry or stress?",
-    answers: [
-      { id: 1, answer: "Rarely", points: 40 },
-      { id: 2, answer: "Sometimes", points: 30 },
-      { id: 3, answer: "Often", points: 20 },
-      { id: 4, answer: "Always", points: 10 },
-    ],
-  },
-];
-
 export const questionnaire_2: Quiz[] = [
   {
     id: 1,
     question: "How often do you feel sad or down for no apparent reason?",
+    weight: 1.5,
     answers: [
-      { id: 1, answer: "Never", points: 40 }, // 'Normal' gets highest points
+      { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
       { id: 3, answer: "Sometimes", points: 20 },
-      { id: 4, answer: "Always", points: 10 }, // 'Always' gets lowest points
+      { id: 4, answer: "Always", points: 10 },
     ],
   },
   {
     id: 2,
     question: "Do you find it difficult to focus or concentrate on tasks?",
+    weight: 1.0,
     answers: [
-      { id: 1, answer: "Never", points: 40 },
-      { id: 2, answer: "Rarely", points: 30 },
-      { id: 3, answer: "Sometimes", points: 20 },
-      { id: 4, answer: "Always", points: 10 },
+      { id: 1, answer: "Never", points: 10 },
+      { id: 2, answer: "Rarely", points: 20 },
+      { id: 3, answer: "Sometimes", points: 30 },
+      { id: 4, answer: "Always", points: 40 },
     ],
   },
   {
     id: 3,
     question: "How often do you feel fatigued, even after resting?",
+    weight: 2.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -98,7 +36,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 4,
-    question: "Do you avoid social interactions because of anxiety?",
+    question: "Do you struggle with irritability or frequent frustration?",
+    weight: 1.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -108,7 +47,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 5,
-    question: "How often do you feel overwhelmed by your responsibilities?",
+    question: "How often do you feel overwhelmed by daily tasks?",
+    weight: 1.2,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -118,7 +58,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 6,
-    question: "How often do you feel restless or on edge?",
+    question: "Do you experience difficulty sleeping or staying asleep?",
+    weight: 1.8,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -128,7 +69,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 7,
-    question: "Do you experience frequent headaches or muscle tension?",
+    question: "Do you often feel anxious about things outside your control?",
+    weight: 1.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -138,7 +80,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 8,
-    question: "How often do you feel like giving up or withdrawing from life?",
+    question: "How often do you feel disconnected from reality?",
+    weight: 1.5,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -148,7 +91,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 9,
-    question: "Do you struggle with low self-esteem or self-worth?",
+    question: "Do you avoid social situations due to fear or anxiety?",
+    weight: 1.3,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -158,7 +102,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 10,
-    question: "How often do you experience feelings of guilt or shame?",
+    question: "How often do you feel hopeless about the future?",
+    weight: 2.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -168,8 +113,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 11,
-    question:
-      "How often do you feel disconnected from reality or your surroundings?",
+    question: "Do you experience frequent headaches or muscle tension?",
+    weight: 1.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -179,7 +124,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 12,
-    question: "Do you have trouble making decisions, even simple ones?",
+    question: "How often do you feel emotionally numb or detached?",
+    weight: 1.7,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -189,7 +135,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 13,
-    question: "How often do you feel irritable or easily frustrated?",
+    question: "Do you feel like you're constantly on edge or restless?",
+    weight: 1.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -199,7 +146,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 14,
-    question: "Do you feel like you lack purpose or direction in life?",
+    question: "How often do you feel excessively worried about small things?",
+    weight: 1.3,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -209,7 +157,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 15,
-    question: "How often do you feel disconnected from loved ones or friends?",
+    question: "How often do you feel low in self-esteem or self-worth?",
+    weight: 1.8,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -219,8 +168,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 16,
-    question:
-      "How often do you find yourself worrying about things that are out of your control?",
+    question: "How often do you experience feelings of guilt or shame?",
+    weight: 1.4,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -230,8 +179,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 17,
-    question:
-      "Do you find it difficult to sleep or stay asleep due to worry or stress?",
+    question: "Do you find it difficult to enjoy things you used to love?",
+    weight: 2.0,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -241,7 +190,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 18,
-    question: "How often do you feel like your emotions are out of control?",
+    question: "How often do you feel a lack of purpose or direction in life?",
+    weight: 1.8,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -251,8 +201,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 19,
-    question:
-      "How often do you feel like your energy is drained, even after rest?",
+    question: "How often do you feel like giving up on your goals?",
+    weight: 1.5,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },
@@ -262,7 +212,8 @@ export const questionnaire_2: Quiz[] = [
   },
   {
     id: 20,
-    question: "How often do you struggle with feelings of anger or rage?",
+    question: "Do you feel isolated, even when surrounded by people?",
+    weight: 1.2,
     answers: [
       { id: 1, answer: "Never", points: 40 },
       { id: 2, answer: "Rarely", points: 30 },

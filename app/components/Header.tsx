@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { navItems as niList } from "../data";
-import { NavigationItem } from "../@types";
-import React from "react";
+import { NavigationItem, User } from "../@types";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { loadUser } from "../services/user";
 
 type HeaderProps = {
   logoOnly?: boolean;
@@ -15,6 +16,12 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
   const navItems: NavigationItem[] = niList;
   const router = useRouter();
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    const existingUser = loadUser();
+    setUser(existingUser ? existingUser : undefined);
+  }, []);
 
   // Animation variants
   const navItemVariants = {
@@ -104,6 +111,15 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
               {ni.name}
             </motion.h2>
           ))}
+
+        <motion.h2
+          variants={navItemVariants}
+          custom={2}
+          className="text-sm cursor-pointer font-semibold"
+          onClick={() => router.push("/profile")}
+        >
+          {user?.name}
+        </motion.h2>
       </motion.div>
     </nav>
   );

@@ -7,6 +7,7 @@ import supergirl from "../assets/super-girl.png";
 import shapes from "../assets/without-cage.png";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { createUser } from "../services/user";
 
 const Body = () => {
   const router = useRouter();
@@ -123,14 +124,17 @@ const Body = () => {
               variants={textVariants}
               custom={8}
             >
-              In 15 Minutes
+              In Few Minutes
             </motion.h2>
 
             <motion.button
               type="button"
               className="text-lg sm:text-xl text-white bg-[#da4363] px-8 sm:px-10 py-2 rounded-lg mt-6 md:mt-10 hover:scale-105 transition-all duration-500 ease-in-out"
               whileHover={{ scale: 1.1 }}
-              onClick={() => router.push("/quiz")}
+              onClick={() => {
+                createUser();
+                router.push("/quiz");
+              }}
             >
               Take the quiz
             </motion.button>
