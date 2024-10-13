@@ -6,8 +6,11 @@ import card from "../assets/card.png";
 import supergirl from "../assets/super-girl.png";
 import shapes from "../assets/without-cage.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Body = () => {
+  const router = useRouter();
+
   // Variants for text animations
   const textVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -38,7 +41,7 @@ const Body = () => {
   return (
     <div className="relative flex flex-col items-center py-6 sm:py-8 md:py-10 justify-center max-w-7xl mx-auto text-black font-medium">
       <div className="flex flex-col md:flex-row w-full h-full py-4">
-        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start md:mb-0 mb-10">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start md:mb-0 mb-6">
           <div className="flex gap-2 sm:gap-4 items-center">
             <motion.h2
               variants={textVariants}
@@ -127,6 +130,7 @@ const Body = () => {
               type="button"
               className="text-lg sm:text-xl text-white bg-[#da4363] px-8 sm:px-10 py-2 rounded-lg mt-6 md:mt-10 hover:scale-105 transition-all duration-500 ease-in-out"
               whileHover={{ scale: 1.1 }}
+              onClick={() => router.push("/quiz")}
             >
               Take the quiz
             </motion.button>

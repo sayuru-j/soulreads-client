@@ -3,8 +3,15 @@
 import { motion } from "framer-motion";
 import { navItems as niList } from "../data";
 import { NavigationItem } from "../@types";
+import React from "react";
 
-const Header = () => {
+type HeaderProps = {
+  logoOnly?: boolean;
+  noPad?: boolean;
+  noSeperator?: boolean;
+};
+
+const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
   const navItems: NavigationItem[] = niList;
 
   // Animation variants
@@ -32,7 +39,13 @@ const Header = () => {
   };
 
   return (
-    <nav className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto py-6 text-black border-b border-black/20">
+    <nav
+      className={`flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto ${
+        noSeperator ? "border-none" : "text-black border-b"
+      } 
+      ${noPad ? "p-0 md:mt-10" : "py-6"}
+      border-black/20`}
+    >
       {/* Left Navigation Items */}
       <motion.div
         id="left"
@@ -40,16 +53,19 @@ const Header = () => {
         initial="hidden"
         animate="visible"
       >
-        {navItems.slice(0, Math.floor(navItems.length / 2)).map((ni, index) => (
-          <motion.h2
-            key={ni.id}
-            variants={navItemVariants}
-            custom={index}
-            className="text-sm"
-          >
-            {ni.name}
-          </motion.h2>
-        ))}
+        {!logoOnly &&
+          navItems
+            .slice(0, Math.floor(navItems.length / 2))
+            .map((ni, index) => (
+              <motion.h2
+                key={ni.id}
+                variants={navItemVariants}
+                custom={index}
+                className="text-sm cursor-pointer"
+              >
+                {ni.name}
+              </motion.h2>
+            ))}
       </motion.div>
 
       {/* Center Logo */}
@@ -60,7 +76,9 @@ const Header = () => {
         animate="visible"
         variants={logoVariant}
       >
-        <h2 className="font-extrabold text-2xl md:text-3xl">SOULREADS</h2>
+        <h2 className="font-extrabold text-2xl md:text-3xl cursor-pointer">
+          SOULREADS
+        </h2>
       </motion.div>
 
       {/* Right Navigation Items */}
@@ -70,16 +88,17 @@ const Header = () => {
         initial="hidden"
         animate="visible"
       >
-        {navItems.slice(Math.floor(navItems.length / 2)).map((ni, index) => (
-          <motion.h2
-            key={ni.id}
-            variants={navItemVariants}
-            custom={index + Math.floor(navItems.length / 2)} // Custom delay for staggered animation
-            className="text-sm"
-          >
-            {ni.name}
-          </motion.h2>
-        ))}
+        {!logoOnly &&
+          navItems.slice(Math.floor(navItems.length / 2)).map((ni, index) => (
+            <motion.h2
+              key={ni.id}
+              variants={navItemVariants}
+              custom={index + Math.floor(navItems.length / 2)} // Custom delay for staggered animation
+              className="text-sm cursor-pointer"
+            >
+              {ni.name}
+            </motion.h2>
+          ))}
       </motion.div>
     </nav>
   );
