@@ -8,7 +8,14 @@ const nextConfig = {
         port: "",
         pathname: "/books/content/**",
       },
+      {
+        protocol: "https",
+        hostname: "avataaars.io",  // Add this for avataaars
+        port: "",
+        pathname: "/**",  // Allow all paths
+      },
     ],
   },
 };
+
 export default nextConfig;

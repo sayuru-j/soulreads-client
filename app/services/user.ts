@@ -1,3 +1,4 @@
+import { AvatarGenerator } from "random-avatar-generator";
 import {
   loadFromLocalStorage,
   removeFromLocalStorage,
@@ -14,10 +15,14 @@ export const createUser = () => {
 
   const id = randomId();
   const name = randomName();
+  const generator = new AvatarGenerator();
+  const avatar = generator.generateRandomAvatar();
+
 
   saveToLocalStorage("user", {
-    id: id,
-    name: name,
+    id,
+    name,
+    avatar
   });
 };
 
