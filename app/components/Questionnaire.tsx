@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { questionnaire_2 as questionnaire } from "../data/questionnaires";
 import { MentalState } from "../@types";
 import { calculateMentalStateAndProvideTagLine } from "../services/mentalState";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 const Questionnaire = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -13,7 +13,7 @@ const Questionnaire = () => {
   const [answers, setAnswers] = useState<{ [key: number]: number | null }>({});
   const [score, setScore] = useState<number | null>(null);
   const [diagnosis, setDiagnosis] = useState<MentalState>();
-  const router = useRouter();
+  //   const router = useRouter();
   const [warn, setWarn] = useState("");
 
   const currentQuestion = questionnaire[currentQuestionIndex];
@@ -30,7 +30,7 @@ const Questionnaire = () => {
     if (score) {
       setDiagnosis(calculateMentalStateAndProvideTagLine(score));
     }
-  }, [currentQuestionIndex, answers, currentQuestion.id, diagnosis]);
+  }, [currentQuestionIndex, answers, currentQuestion.id, diagnosis, score]);
 
   const handleAnswerSelect = (answerId: number) => {
     setSelectedAnswer(answerId);
@@ -122,7 +122,7 @@ const Questionnaire = () => {
             guaranteed diagnosis. The results are based on common patterns and
             may only serve as a guide. This tool should not be used as a
             substitute for professional medical advice, diagnosis, or treatment.
-            If you're experiencing significant mental health challenges, we
+            If you&apos;re experiencing significant mental health challenges, we
             strongly encourage you to seek help from a qualified healthcare
             provider.
           </div>
