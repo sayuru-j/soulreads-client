@@ -2,12 +2,23 @@ import React from "react";
 import Image from "next/image";
 import bookImage from "../assets/books.png";
 import Header from "../components/Header";
+import backgroundImg from "../assets/gg.png";
 
 const About: React.FC = () => {
   return (
     <>
       <Header />
+     
       <div className="relative flex flex-col items-center justify-center max-w-7xl mx-auto p-8 text-center">
+      <div className="absolute inset-0">
+        <Image
+          src={backgroundImg}
+          alt="Background"
+          layout="fill"
+          objectFit="cover"
+          className="opacity-10"
+        />
+      </div>
         <h1 className="text-5xl font-extrabold mb-6 text-gradient relative z-10">
           About Us
         </h1>

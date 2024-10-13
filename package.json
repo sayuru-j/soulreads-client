@@ -12,6 +12,7 @@
     "client": "file:",
     "framer-motion": "^11.11.8",
     "next": "^14.2.15",
+    "random-avatar-generator": "^2.0.0",
     "react": "^18.3.1",
     "react-dom": "^18"
   },

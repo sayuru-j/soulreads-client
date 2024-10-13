@@ -7,22 +7,26 @@ import Image from "next/image";
 import backgroundImg from '../assets/gg.png';
 import { randomName } from '../utils/name'; 
 
-
 const ProfilePage = () => {
   const router = useRouter();
   const [profilePic, setProfilePic] = useState<string>('');
   const [userName, setUserName] = useState<string>(''); 
-  
+  const generator = new AvatarGenerator(); // Create an instance of AvatarGenerator
 
   useEffect(() => {
-    
-const user = loadUser()
-    if (user){
-      // Set the random username
-    const name = user.name;
-    setUserName(name);
-    const avatar = user.avatar;
-    setProfilePic(avatar);
+    const user = loadUser();
+    if (user) {
+      // Use the user's name if available
+      const name = user.name || randomName(); // Use randomName if no name
+      setUserName(name);
+      
+      // Use the user's avatar if available, else generate a random avatar
+      const avatar = user.avatar || generator.generateRandomAvatar(); // Generate random avatar if not available
+      setProfilePic(avatar);
+    } else {
+      // Generate a random name and avatar if no user is loaded
+      setUserName(randomName());
+      setProfilePic(generator.generateRandomAvatar());
     }
   }, []);
 
@@ -47,8 +51,6 @@ const user = loadUser()
         
         {/* Display the random name */}
         <h1 className="text-3xl font-semibold mb-2">{userName}'s Profile</h1>
-
-        
 
         <button
           type="button"
