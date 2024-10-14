@@ -29,12 +29,11 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
     setUser(existingUser ? existingUser : undefined);
     const isDarkMode = loadFromLocalStorage("darkMode");
     if (isDarkMode) {
-      document.documentElement.classList.add("dark")
+      document.documentElement.classList.add("dark");
       setIsDarkMode(isDarkMode);
-      
-    }else{
-      document.documentElement.classList.remove("dark")
-      setIsDarkMode(false)
+    } else {
+      document.documentElement.classList.remove("dark");
+      setIsDarkMode(false);
     }
   }, []);
 
@@ -43,15 +42,12 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
 
     const htmlElement = document.documentElement;
 
-    // Log current state and toggle the class
     if (!isDarkMode) {
       htmlElement.classList.add("dark");
       saveToLocalStorage("darkMode", true);
-      console.log("Dark mode enabled");
     } else {
       removeFromLocalStorage("darkMode");
       htmlElement.classList.remove("dark");
-      console.log("Dark mode disabled");
     }
   };
 
@@ -78,9 +74,21 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
     },
   };
 
+  const sunVariants = {
+    initial: { opacity: 0, scale: 0.5, rotate: -180 },
+    animate: { opacity: 1, scale: 1.2, rotate: 0 },
+    exit: { opacity: 0, scale: 0.5, rotate: 180 },
+  };
+
+  const moonVariants = {
+    initial: { opacity: 0, scale: 0.5, rotate: 180 },
+    animate: { opacity: 1, scale: 1, rotate: 0 },
+    exit: { opacity: 0, scale: 0.5, rotate: -180 },
+  };
+
   return (
     <nav
-      className={`flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto ${
+      className={`flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto z-50 ${
         noSeperator ? "border-none" : "text-black border-b dark:text-white"
       } 
       ${noPad ? "p-0 md:mt-10" : "py-6"}
@@ -140,10 +148,26 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
             </motion.h2>
           ))}
         <motion.button
-          className="bg-gray-200 rounded-full p-2"
+          className="bg-gray-200 rounded-full p-4"
           onClick={handleToggle}
+          initial={{ opacity: 1 }}
+          animate={{ scale: 1.1 }}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: "spring", stiffness: 200, damping: 10 }}
         >
-          {isDarkMode ? "🌞" : "🌙"}
+          <motion.div
+            className="w-2 h-2 text-sm flex items-center justify-center"
+            key={isDarkMode ? "sun" : "moon"}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={isDarkMode ? sunVariants : moonVariants}
+            transition={{ duration: 0.5 }}
+            style={{ fontSize: "1rem" }}
+          >
+            {isDarkMode ? "🌞" : "🌙"}
+          </motion.div>
         </motion.button>
 
         <motion.h2

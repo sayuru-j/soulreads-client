@@ -6,6 +6,7 @@ import { getBookInfo } from "../services/books";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { getFromCache, setInCache } from "../utils/cache";
+import Loader from "./UI/Loader";
 
 type BookListProps = {
   books: BookInfoBrief[];
@@ -81,7 +82,7 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
 
   return (
     <>
-      {books.length > 0 ? (
+      {books.length > 0 && (
         <div className="flex flex-col">
           {/* Display the first book */}
           <motion.div
@@ -224,9 +225,11 @@ const BookList: React.FC<BookListProps> = ({ books }) => {
             )}
           </motion.div>
         </div>
-      ) : (
-        <div className="font-semibold text-3xl text-center text-black">
-          Complete the quiz before.
+      )}
+
+      {books.length === 0 && (
+        <div className="mt-20">
+          <Loader />
         </div>
       )}
     </>

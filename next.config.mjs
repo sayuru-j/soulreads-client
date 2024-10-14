@@ -11,9 +11,15 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "avataaars.io",  // Add this for avataaars
+        hostname: "avataaars.io",
         port: "",
-        pathname: "/**",  // Allow all paths
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "encrypted-tbn0.gstatic.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },

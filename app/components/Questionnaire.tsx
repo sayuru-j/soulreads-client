@@ -11,7 +11,7 @@ import {
   loadDiagnosis,
   saveDiagnosis,
 } from "../services/diagnose";
-import { loadUser } from "../services/user";
+import { createUser, loadUser } from "../services/user";
 
 const Questionnaire = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -48,6 +48,13 @@ const Questionnaire = () => {
     const savedDiagnosis = loadDiagnosis();
     if (savedDiagnosis) {
       setDiagnosis(savedDiagnosis);
+    }
+  }, []);
+
+  useEffect(() => {
+    const userExists = loadUser();
+    if (!userExists) {
+      createUser();
     }
   }, []);
 
@@ -132,8 +139,12 @@ const Questionnaire = () => {
           variants={fadeInOut}
           className="md:text-5xl text-center flex flex-col gap-2 items-center dark:text-white"
         >
-          <h2 className="font-bold text-4xl dark:text-white">{diagnosis?.state}</h2>
-          <h2 className="md:text-2xl text-xl dark:text-white/80">{diagnosis?.tagline}</h2>
+          <h2 className="font-bold text-4xl dark:text-white">
+            {diagnosis?.state}
+          </h2>
+          <h2 className="md:text-2xl text-xl dark:text-white/80">
+            {diagnosis?.tagline}
+          </h2>
 
           <div
             onClick={() => router.push("/books")}
@@ -189,7 +200,7 @@ const Questionnaire = () => {
                 className={`transition-all duration-100 cursor-pointer ease-in-out flex flex-col items-start gap-2 p-6 w-full md:w-[300px] min-h-24 md:min-h-40 rounded-lg ${
                   selectedAnswer === answer.id
                     ? "bg-gradient-to-r from-rose-100 to-teal-100 text-[#da4363] shadow-md"
-                    : "bg-white dark:bg-gray-800"
+                    : "bg-slate-100 dark:bg-gray-800"
                 }`}
                 onClick={() => handleAnswerSelect(answer.id)}
               >
@@ -224,7 +235,9 @@ const Questionnaire = () => {
                     )}
                   </div>
                 </div>
-                <h2 className="font-semibold dark:text-white">{answer.answer}</h2>
+                <h2 className="font-semibold dark:text-[#da4363]">
+                  {answer.answer}
+                </h2>
               </motion.div>
             ))}
           </div>
