@@ -6,6 +6,11 @@ import { NavigationItem, User } from "../@types";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { loadUser } from "../services/user";
+import {
+  loadFromLocalStorage,
+  removeFromLocalStorage,
+  saveToLocalStorage,
+} from "../utils/ls";
 
 type HeaderProps = {
   logoOnly?: boolean;
@@ -22,6 +27,15 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
   useEffect(() => {
     const existingUser = loadUser();
     setUser(existingUser ? existingUser : undefined);
+    const isDarkMode = loadFromLocalStorage("darkMode");
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark")
+      setIsDarkMode(isDarkMode);
+      
+    }else{
+      document.documentElement.classList.remove("dark")
+      setIsDarkMode(false)
+    }
   }, []);
 
   const handleToggle = () => {
@@ -32,8 +46,10 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
     // Log current state and toggle the class
     if (!isDarkMode) {
       htmlElement.classList.add("dark");
+      saveToLocalStorage("darkMode", true);
       console.log("Dark mode enabled");
     } else {
+      removeFromLocalStorage("darkMode");
       htmlElement.classList.remove("dark");
       console.log("Dark mode disabled");
     }
@@ -65,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
   return (
     <nav
       className={`flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto ${
-        noSeperator ? "border-none" : "text-black border-b"
+        noSeperator ? "border-none" : "text-black border-b dark:text-white"
       } 
       ${noPad ? "p-0 md:mt-10" : "py-6"}
       border-black/20`}

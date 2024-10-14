@@ -6,6 +6,7 @@ import { AvatarGenerator } from 'random-avatar-generator';
 import Image from "next/image";
 import backgroundImg from '../assets/gg.png';
 import { randomName } from '../utils/name'; 
+import Header from "../components/Header";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -31,7 +32,13 @@ const ProfilePage = () => {
   }, []);
 
   return (
+    
+    
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="w-screen h-screen overflow-auto md:overflow-hidden text-black dark:text-white/80">
+      <Header logoOnly noPad noSeperator />
+    </div>
+      
       <div className="absolute inset-0">
         <Image
           src={backgroundImg}
@@ -42,7 +49,7 @@ const ProfilePage = () => {
         />
       </div>
 
-      <div className="bg-white shadow-xl rounded-lg p-8 text-center z-10 relative">
+      <div className="bg-white shadow-xl rounded-lg p-8 text-center z-10 relative items-center flex-col flex">
         <img
           src={profilePic}
           alt="Profile"

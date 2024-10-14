@@ -40,7 +40,7 @@ const Body = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center py-6 sm:py-8 md:py-10 justify-center max-w-7xl mx-auto text-black font-medium">
+    <div className="relative flex flex-col items-center py-6 sm:py-8 md:py-10 justify-center max-w-7xl mx-auto text-black font-medium dark:text-white/80">
       <div className="flex flex-col md:flex-row w-full h-full py-4">
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start md:mb-0 mb-6">
           <div className="flex gap-2 sm:gap-4 items-center">
@@ -54,7 +54,7 @@ const Body = () => {
               Gain knowledge
             </motion.h2>
             <motion.h2
-              className="bg-[#ebb4c6] py-1 px-4 sm:px-6 rounded-full font-bold text-base sm:text-lg"
+              className="bg-[#ebb4c6] dark:bg-[#b8486d] py-1 px-4 sm:px-6 rounded-full font-bold text-base sm:text-lg"
               variants={textVariants}
               initial="hidden"
               animate="visible"

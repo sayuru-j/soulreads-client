@@ -130,10 +130,10 @@ const Questionnaire = () => {
           animate="visible"
           exit="exit"
           variants={fadeInOut}
-          className="md:text-5xl text-center flex flex-col gap-2 items-center"
+          className="md:text-5xl text-center flex flex-col gap-2 items-center dark:text-white"
         >
-          <h2 className="font-bold text-4xl">{diagnosis?.state}</h2>
-          <h2 className="md:text-2xl text-xl">{diagnosis?.tagline}</h2>
+          <h2 className="font-bold text-4xl dark:text-white">{diagnosis?.state}</h2>
+          <h2 className="md:text-2xl text-xl dark:text-white/80">{diagnosis?.tagline}</h2>
 
           <div
             onClick={() => router.push("/books")}
@@ -151,7 +151,7 @@ const Questionnaire = () => {
             Retry test
           </div>
 
-          <div className="text-sm mt-6">
+          <div className="text-sm mt-6 dark:text-white/80">
             Disclaimer: This questionnaire is designed to provide general
             insights based on your responses, but it does not provide a
             guaranteed diagnosis. The results are based on common patterns and
@@ -170,7 +170,7 @@ const Questionnaire = () => {
             animate="visible"
             exit="exit"
             variants={fadeInOut}
-            className="font-bold text-3xl md:text-5xl md:mb-10 inline-flex flex-col"
+            className="font-bold text-3xl md:text-5xl md:mb-10 inline-flex flex-col dark:text-white"
           >
             {currentQuestion.question}
             <span className="text-sm mt-4 text-[#da4363] animate-bounce">
@@ -189,7 +189,7 @@ const Questionnaire = () => {
                 className={`transition-all duration-100 cursor-pointer ease-in-out flex flex-col items-start gap-2 p-6 w-full md:w-[300px] min-h-24 md:min-h-40 rounded-lg ${
                   selectedAnswer === answer.id
                     ? "bg-gradient-to-r from-rose-100 to-teal-100 text-[#da4363] shadow-md"
-                    : "bg-white"
+                    : "bg-white dark:bg-gray-800"
                 }`}
                 onClick={() => handleAnswerSelect(answer.id)}
               >
@@ -198,7 +198,7 @@ const Questionnaire = () => {
                     className={`font-semibold ${
                       selectedAnswer === answer.id
                         ? "text-[#da4363]"
-                        : "text-black/50"
+                        : "text-black/50 dark:text-white/80"
                     }`}
                   >
                     {answer.id}
@@ -216,7 +216,7 @@ const Questionnaire = () => {
                     className={`w-4 h-4 md:w-6 md:h-6 rounded-full border-2 border-black/50 flex items-center justify-center ${
                       selectedAnswer === answer.id
                         ? "bg-[#da4363] border-none"
-                        : ""
+                        : "dark:border-white/50"
                     }`}
                   >
                     {selectedAnswer === answer.id && (
@@ -224,7 +224,7 @@ const Questionnaire = () => {
                     )}
                   </div>
                 </div>
-                <h2 className="font-semibold">{answer.answer}</h2>
+                <h2 className="font-semibold dark:text-white">{answer.answer}</h2>
               </motion.div>
             ))}
           </div>
@@ -234,7 +234,7 @@ const Questionnaire = () => {
               onClick={handleBack}
               className={`${
                 currentQuestionIndex === 0 ? "bg-gray-400" : "bg-slate-600"
-              } text-white p-3 cursor-pointer rounded-lg hover:bg-slate-600 transition-all duration-300 w-1/2 md:w-auto md:min-w-32 ${
+              } text-white p-3 cursor-pointer rounded-lg hover:bg-slate-600 transition-all duration-300 w-1/2 md:w-auto md:min-w-32  ${
                 currentQuestionIndex === 0 && "hidden"
               }`}
               whileHover={{ scale: currentQuestionIndex === 0 ? 1 : 1.05 }}
