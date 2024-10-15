@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
       >
         {!logoOnly &&
           navItems
-            .slice(0, Math.floor(navItems.length / 2+1))
+            .slice(0, Math.floor(navItems.length / 2 + 1))
             .map((ni, index) => (
               <motion.h2
                 key={ni.id}
@@ -136,19 +136,21 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
         animate="visible"
       >
         {!logoOnly &&
-          navItems.slice(Math.floor(navItems.length / 2 +1)).map((ni, index) => (
-            <motion.h2
-              key={ni.id}
-              variants={navItemVariants}
-              custom={index + Math.floor(navItems.length / 2)}
-              className="text-sm cursor-pointer"
-              onClick={() => router.push(ni.url)}
-            >
-              {ni.name}
-            </motion.h2>
-          ))}
+          navItems
+            .slice(Math.floor(navItems.length / 2 + 1))
+            .map((ni, index) => (
+              <motion.h2
+                key={ni.id}
+                variants={navItemVariants}
+                custom={index + Math.floor(navItems.length / 2)}
+                className="text-sm cursor-pointer"
+                onClick={() => router.push(ni.url)}
+              >
+                {ni.name}
+              </motion.h2>
+            ))}
         <motion.button
-          className="bg-gray-200 rounded-full p-4"
+          className="bg-gray-200 dark:bg-gray-800 rounded-full p-4"
           onClick={handleToggle}
           initial={{ opacity: 1 }}
           animate={{ scale: 1.1 }}

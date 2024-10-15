@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { questionnaire_2 as questionnaire } from "../data/questionnaires";
+import { questionnaire_1 as questionnaire } from "../data/questionnaires";
 import { Answer, MentalState, Quiz } from "../@types";
 import { calculateMentalStateAndProvideTagLine } from "../services/mentalState";
 import { useRouter } from "next/navigation";
@@ -69,11 +69,13 @@ const Questionnaire = () => {
     let totalScore = 0;
     let maxScore = 0;
 
+    // Calculate the total and max scores with weighting
     questionnaire.forEach((question: Quiz) => {
       const selected = answers[question.id];
       const maxPoints = Math.max(...question.answers.map((a) => a.points));
       const questionWeight = question.weight || 1;
 
+      // Add the weighted max score for each question
       maxScore += maxPoints * questionWeight;
 
       if (selected !== null && selected !== undefined) {
@@ -81,18 +83,16 @@ const Questionnaire = () => {
           (a: Answer) => a.id === selected
         );
         if (selectedAnswer) {
+          // Add the selected answer's weighted points to the total score
           totalScore += selectedAnswer.points * questionWeight;
         }
       }
     });
 
-    if (totalScore < maxScore * 0.3) {
-      totalScore *= 1.1;
-    } else if (totalScore > maxScore * 0.8) {
-      totalScore *= 0.9;
-    }
+    // Normalize the score between 0 and 100
+    const normalizedScore = (totalScore / maxScore) * 100;
 
-    const normalizedScore = Math.min((totalScore / maxScore) * 100, 100);
+    // Return the rounded normalized score
     return Math.round(normalizedScore);
   };
 
@@ -130,7 +130,7 @@ const Questionnaire = () => {
   };
 
   return (
-    <div className="flex mb-20 flex-col max-w-7xl mx-auto w-full justify-center p-10 md:p-40 gap-10 md:mt-0">
+    <div className="flex mb-20 flex-col max-w-7xl mx-auto w-full justify-center p-10 mt-14 gap-10">
       {diagnosis ? (
         <motion.div
           initial="hidden"

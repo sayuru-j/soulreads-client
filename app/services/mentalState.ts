@@ -6,14 +6,14 @@ export const calculateMentalStateAndProvideTagLine = (
   let diagnosedState: State;
   let tagline: string;
 
-  if (score <= 20) {
-    diagnosedState = "Depression";
-    tagline =
-      "It seems like you're going through a tough time with feelings of depression. It's important to know that help is available.";
-  } else if (score <= 40) {
+  if (score <= 25) {
     diagnosedState = "Suicidal";
     tagline =
       "Your responses indicate you may be feeling overwhelmed by suicidal thoughts. Please reach out to a professional, friend, or helpline immediately.";
+  } else if (score <= 40) {
+    diagnosedState = "Depression";
+    tagline =
+      "It seems like you're going through a tough time with feelings of depression. It's important to know that help is available.";
   } else if (score <= 50) {
     diagnosedState = "Anxiety";
     tagline =
