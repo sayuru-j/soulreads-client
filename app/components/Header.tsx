@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
       >
         {!logoOnly &&
           navItems
-            .slice(0, Math.floor(navItems.length / 2))
+            .slice(0, Math.floor(navItems.length / 2+1))
             .map((ni, index) => (
               <motion.h2
                 key={ni.id}
@@ -136,7 +136,7 @@ const Header: React.FC<HeaderProps> = ({ logoOnly, noPad, noSeperator }) => {
         animate="visible"
       >
         {!logoOnly &&
-          navItems.slice(Math.floor(navItems.length / 2)).map((ni, index) => (
+          navItems.slice(Math.floor(navItems.length / 2 +1)).map((ni, index) => (
             <motion.h2
               key={ni.id}
               variants={navItemVariants}

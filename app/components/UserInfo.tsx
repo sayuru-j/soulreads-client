@@ -17,9 +17,9 @@ const UserInfo = () => {
   }, []);
 
   return (
-    <div className="max-w-md py-6 px-6 w-full bg-gray-200 dark:bg-slate-800 rounded-lg min-h-50 flex flex-col items-center gap-2 justify-center">
+    <div className="max-w-md py-6 px-6 w-full bg-gray-200 dark:bg-slate-800 rounded-lg min-h-50 flex flex-col items-center gap-2 justify-center mt-40">
       <img
-        className="w-20 h-20 rounded-full object-cover"
+        className="w-20 h-32 rounded-full object-cover"
         src={
           user?.avatar ||
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4YreOWfDX3kK-QLAbAL4ufCPc84ol2MA8Xg&s"
